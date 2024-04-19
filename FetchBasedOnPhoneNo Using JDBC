@@ -1,0 +1,57 @@
+//Fetch Based On Phone Number Using JDBC 
+
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+
+public class FetchBasedOnPhoneNo {
+			
+	public static void main(String[] args) {
+		Scanner sc=new Scanner (System.in);
+		System.out.println("Enter a passanger phone number to get Details:");
+		long phoneno=sc.nextLong();
+		try {
+			// load driver
+			
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			// Establish Connection
+				
+				Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/passangers_db","root","root");
+				
+			//statement
+				
+				PreparedStatement ps= c.prepareStatement("select pid,pname,page*,pgender from passangers where phone =?");
+
+
+				
+			//query
+				
+
+				ResultSet rs=ps.executeQuery();
+			
+				while(rs.next()) {
+				System.out.println("PID =" + rs.getInt("pid"));
+				System.out.println("PNAME =" + rs.getString("pname"));
+				System.out.println("PAGE =" + rs.getInt("page"));
+				System.out.println("PGENDER =" + rs.getString("pgender"));
+				
+				System.out.println("\t\t***********************************************");
+				
+				}
+				System.out.println("Completed");
+		
+		} catch (ClassNotFoundException | SQLException e) {
+
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+	}

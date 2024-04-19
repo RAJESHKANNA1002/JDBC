@@ -1,0 +1,30 @@
+//Delete Data into Database using JDBC
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Delete {
+
+	public static void main(String[] args) {
+		
+		
+		try {
+			//1.load the driver
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			//2.Establish the Conncection
+			Connection c= DriverManager.getConnection("jdbc:mysql://localhost:3306/passangers_db?user=root&password=root");
+			
+			//3. Statement
+			Statement s= c.createStatement();
+			//4. exceute
+			s.executeUpdate("delete from passangers_db.passangers where pid=2 ");
+			System.out.println("Deleted");
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+}

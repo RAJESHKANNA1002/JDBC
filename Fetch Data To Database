@@ -1,0 +1,51 @@
+// Fetch Data to Database
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+public class Fetch {
+			
+	public static void main(String[] args) {
+		
+		try {
+			// load driver
+			
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			// Establish Connection
+				
+				Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/passangers_db","root","root");
+				
+			//statement
+				
+				Statement s=c.createStatement();
+				
+			//query
+				ResultSet rs=s.executeQuery("Select*from passangers");
+			
+				while(rs.next()) {
+				System.out.println("PID =" + rs.getInt(1));
+				System.out.println("PNAME =" + rs.getString(2));
+				System.out.println("PAGE =" + rs.getString(3));
+				System.out.println("PPHONE =" + rs.getString(4));
+				System.out.println("PGENDER =" + rs.getString(5));
+				
+				System.out.println("\t\t***********************************************");
+				
+				}
+				System.out.println("Completed");
+		
+		} catch (ClassNotFoundException | SQLException e) {
+
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+}
